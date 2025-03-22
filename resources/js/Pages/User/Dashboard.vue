@@ -1,8 +1,8 @@
 <template>
     <div>
-      <h1>Welcome, {{ user.name }}!</h1>
-      <p>You can book, view, and manage your appointments here.</p>
-      <a :href="route('appointments.index')">View Appointments</a>
+        <h1>Welcome, {{ user.name }}!</h1>
+        <p>You can book, view, and manage your appointments here.</p>
+        <a :href="route('appointments.index')">View Appointments</a>
     </div>
 </template>
 

@@ -44,11 +44,14 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|min:6|confirmed'
+            'password' => 'required|min:6|'
+            // 'password' => 'required|min:6|confirmed'
         ]);
+
 
         try {
             $user = User::create([
@@ -57,6 +60,7 @@ class AuthController extends Controller
                 'password' => Hash::make($data['password']),
                 'is_admin' => false // Ensure new users are regular users
             ]);
+
 
             Auth::login($user);
 

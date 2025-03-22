@@ -10,7 +10,10 @@ class AppointmentController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Appointments/Index', [
+        // return Inertia::render('Appointments/Index', [
+        //     'appointments' => Appointment::where('user_id', Auth::id())->get()
+        // ]);
+        return Inertia::render('User/Appointments', [
             'appointments' => Appointment::where('user_id', Auth::id())->get()
         ]);
     }

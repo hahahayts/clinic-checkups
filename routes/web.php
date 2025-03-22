@@ -5,20 +5,26 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 
 // Authentication Routes
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::middleware(['guest'])->group(function(){
+    Route::get('/', [AuthController::class, 'showLoginForm']);
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
+});
 
 // Dashboard Routes
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return inertia('User/Dashboard', ['user' => Auth::user()]);
-    })->name('dashboard');
+    // Route::get('/dashboard', function () {
+    //     return inertia('User/Dashboard', ['user' => Auth::user()]);
+    // })->name('dashboard');
+
+    Route::get('/dashboard',[UserController::class, 'dashboard'])->name('dashboard');
 
     // User Appointment Routes
     Route::resource('appointments', AppointmentController::class);
@@ -43,6 +49,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 // Home Route (Public)
-Route::get('/', function () {
-    return inertia('Welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return inertia('Welcome');
+// })->name('home');

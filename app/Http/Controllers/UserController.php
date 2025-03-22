@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function dashboard()
     {
-        return Inertia::render('UserDashboard', [
+        return Inertia::render('User/Dashboard', [
             'user' => Auth::user(),
         ]);
     }
